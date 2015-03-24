@@ -191,19 +191,23 @@ game.EnemyBaseEntity = me.Entity.extend({
 
 game.EnemyCreep = me.Entity.extend({
     init: function(x, y, settings){
-        this.__super(me.Entity, 'init', [x, y, {
+        this._super(me.Entity, 'init', [x, y, {
                 image: "creep1",
                 width: 32,
                 height: 64,
                 spritewidth: "32",
                 spriteheight: "64",
                 getShape: function(){
-                    return (new me.Rect(0, 0, 32, 64)),toPolygon();
+                    return (new me.Rect(0, 0, 32, 64)).toPolygon();
                 }
         }]);
         this.health = 10;
         this.alwaysUpdate = true;
-        
+        //this.attacking lets us know if the enemy is currently attacking
+        this.attacking = false;
+        //keeps track of when our creep last attacked anything
+        this.lastAttacking = new Date().getTime();
+        this.now = new Date().getTime();
         this.body.setVelocity(3, 20);
         
         this.type = "EnemyCreep";
@@ -213,9 +217,35 @@ game.EnemyCreep = me.Entity.extend({
     
     },
     
-    update: function(){
+    update: function(delta){
+        this.now = new Date().getTime();    
         
+        this.body.vel.x -= this.body.accel.x * me.timer.tick;
+        
+        me.collision.check(this, true, this.collideHandler.bind(this), true);
+        
+        
+        this.body.update(delta);
+        
+         
+        
+        this._super(me.Entity, "update", [delta]);    
+        return true;
+    },
+    
+    collideHandler: function(response){
+        if(response.b.type==='PlayerBase'){
+            this.attacking=true;
+            this.lastAttacking=this.now;
+            this.body.vel.x = 0;
+            this.poos.x = this.pos.x + 1;
+            if((this.now-this.lastHit >= 1000)){
+                this.lastHit = this.now;
+                response.b.loseHealth(1);
+            }
+        }
     }
+    
 });
 
 game.GameManager = Object.extend({
@@ -229,9 +259,9 @@ game.GameManager = Object.extend({
     update: function(){
         this.now = new Date().getTime();
         
-        if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lasttCreep >= 1000)){
+        if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){
             this.lastCreep = this.now;
-            var creepe = me.pool.pull(EnemyCreep, 1000, 0, {});
+            var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
             me.game.world.addChild(creepe, 5);
         } 
         
