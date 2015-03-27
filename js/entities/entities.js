@@ -106,6 +106,10 @@ game.PlayerEntity = me.Entity.extend({
                 this.lastHit = this.now;
                 response.b.loseHealth();
             }
+        }else if(response.b.type==='EnemyCreep'){
+            if(this.renderable.isCurrentAnimation("attack")){
+                response.b.loseHealth(1);   
+            }
         }
     }
 });
@@ -229,7 +233,12 @@ game.EnemyCreep = me.Entity.extend({
     
     },
     
+    loseHealth: function(damage){
+      this.health = this.health - damage;  
+    },
+    
     update: function(delta){
+        
         if(this.health <=0){
             me.game.world.removeChild(this);
         }
@@ -256,7 +265,7 @@ game.EnemyCreep = me.Entity.extend({
                 //damage of 1
                 response.b.loseHealth(1);
             }
-        }else if (response.b.type==='Player Entity'){
+        }else if (response.b.type==='PlayerEntity'){
             var xdif = this.pos.x - response.b.pos.x;
             this.attacking=true;
             //this.lastAttacking=this.now;
