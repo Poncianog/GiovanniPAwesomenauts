@@ -17,7 +17,7 @@ var game = {
 //                orcBaseSpeed: 3,
 //                orcBaseDefense: 0,
                 playerAttackTimer: 1000,
-                enemyCreepAttackTimer: 1000,
+                enemyCreepAttackTimer: 1000,           
                 playerMoveSpeed: 5,
                 creepMoveSpeed: 5,
                 gameManager: "",
@@ -65,6 +65,6 @@ var game = {
 		me.state.set(me.state.PLAY, new game.PlayScreen());
 
 		// Start the game.
-		me.state.change(me.state.PLAY);
+		me.state.change(me.state.MENU);
 	}
 };
