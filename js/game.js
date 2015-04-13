@@ -28,6 +28,8 @@ var game = {
                 exp2: 0,
                 exp3: 0,
                 exp4: 0,
+                fireballTimer: 1000,
+                player2: ""
 	},
 	
 	
@@ -62,6 +64,7 @@ var game = {
 	// Run on game resources loaded.
 	"loaded" : function () {
                 me.pool.register("player", game.PlayerEntity, true);
+                me.pool.register("player2", game.Player2Entity, true);
                 me.pool.register("PlayerBase", game.PlayerBaseEntity);
                 me.pool.register("EnemyBase", game.EnemyBaseEntity);
                 me.pool.register("EnemyCreep", game.EnemyCreep, true);
