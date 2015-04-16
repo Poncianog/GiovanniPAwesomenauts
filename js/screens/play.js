@@ -22,6 +22,9 @@ game.PlayScreen = me.ScreenObject.extend({
                 me.input.bindKey(me.input.KEY.LEFT, "left");
                 me.input.bindKey(me.input.KEY.SPACE, "jump");
                 me.input.bindKey(me.input.KEY.A, "attack");
+                me.input.bindKey(me.input.KEY.Q, "skill1");
+                me.input.bindKey(me.input.KEY.W, "skill2");
+                me.input.bindKey(me.input.KEY.E, "skill3");
 
 		// add our HUD to the game world
 		this.HUD = new game.HUD.Container();
@@ -38,8 +41,8 @@ game.PlayScreen = me.ScreenObject.extend({
 	},        
         
         resetPlayer: function(x, y){
-            game.data.player = me.pool.pull("player", x, y, {});
-            me.game.world.addChild(game.data.player, 5);
+            game.data.player2 = me.pool.pull("player2", x, y, {});
+            me.game.world.addChild(game.data.player2, 5);
         }
         
 });
