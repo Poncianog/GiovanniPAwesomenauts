@@ -43,6 +43,8 @@ var game = {
 		alert("Your browser does not support HTML5 canvas.");
 		return;
 	}
+        
+        console.log("what the");
 
 	// add "#debug" to the URL to enable the debug Panel
 	if (document.location.hash === "#debug") {
@@ -71,7 +73,7 @@ var game = {
 	// Run on game resources loaded.
 	"loaded" : function () {
                 me.pool.register("player", game.PlayerEntity, true);
-                me.pool.register("player2", game.Player2Entity, true);
+                //me.pool.register("player2", game.Player2Entity, true);
                 me.pool.register("fireball", game.fireball, true);
                 me.pool.register("PlayerBase", game.PlayerBaseEntity);
                 me.pool.register("EnemyBase", game.EnemyBaseEntity);

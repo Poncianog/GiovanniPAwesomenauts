@@ -1,5 +1,6 @@
 game.PlayerEntity = me.Entity.extend({
     init: function(x, y, settings){
+         console.log(this.attacking + ":)");
         this.setSuper(x, y);
         this.setPlayerTimers();
         this.setAttributes();   
@@ -54,6 +55,7 @@ game.PlayerEntity = me.Entity.extend({
     },
     
     update: function(delta){
+         console.log(this.attacking + "*");
         this.now= new Date().getTime();  
         this.dead = this.checkIfDead();
         this.checkKeyPressesAndMove();        
@@ -67,12 +69,13 @@ game.PlayerEntity = me.Entity.extend({
     checkIfDead: function(){
         //this checks if the Player is dead, and if he is dead then it is true
          if (this.health <= 0){
-            this.dead = true;
+            return true;
         }
         return false;
     },
     
     checkKeyPressesAndMove: function(){
+         console.log(this.attacking + "!");
         //if the key is pressed than he moves to the right
         if(me.input.isKeyPressed("right")){
             this.moveRight();
@@ -87,7 +90,7 @@ game.PlayerEntity = me.Entity.extend({
             this.jump();
         }
         
-        this.atatcking = me.input.isKeyPressed("attack");
+        this.attacking = me.input.isKeyPressed("attack");
     },
     
     moveRight: function(){
@@ -111,6 +114,7 @@ game.PlayerEntity = me.Entity.extend({
     },
     
     setAnimation: function(){
+        console.log(this.attacking + "?");
         if(this.attacking){
             if(!this.renderable.isCurrentAnimation("attack")){
                 //Sets the current animation to attack and once that is over
