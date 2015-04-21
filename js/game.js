@@ -30,9 +30,8 @@ var game = {
                 exp3: 0,
                 exp4: 0,
                 win: "",
-                fireballTimer: 1000,
-                player2: ""
-                
+                pausePos: "",
+                buyscreen: ""
 	},
 	
 	
@@ -43,8 +42,6 @@ var game = {
 		alert("Your browser does not support HTML5 canvas.");
 		return;
 	}
-        
-        console.log("what the");
 
 	// add "#debug" to the URL to enable the debug Panel
 	if (document.location.hash === "#debug") {
@@ -81,6 +78,7 @@ var game = {
                 me.pool.register("GameTimerManager", game.GameTimerManager);
                 me.pool.register("HeroDeathManager", game.HeroDeathManager);
                 me.pool.register("ExperienceManager", game.ExperienceManager);
+                me.pool.register("SpendGold", game.SpendGold);
             
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());

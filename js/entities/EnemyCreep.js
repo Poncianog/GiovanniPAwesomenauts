@@ -89,7 +89,7 @@ game.EnemyCreep = me.Entity.extend( {
             }
         }
         
-        else if (response.b.type==='Player2Entity'){
+        else if (response.b.type==='PlayerEntity'){
             var xdif = this.pos.x - response.b.pos.x;
             
             this.attacking=true;
