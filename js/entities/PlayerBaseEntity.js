@@ -13,7 +13,8 @@ game.PlayerBaseEntity = me.Entity.extend({
         this.broken = false;
         this.health = game.data.playerBaseHealth;
         this.alwaysUpdate = true;
-        this.body.onCollision = this.onCollision.bind(this);       
+        this.body.onCollision = this.onCollision.bind(this); 
+        
         this.type = "PlayerBase";
         
         this.renderable.addAnimation("idle", [0]);
@@ -33,12 +34,12 @@ game.PlayerBaseEntity = me.Entity.extend({
         return true;
     },
     
-    loseHealth: function(damage){
-        this.health = this.health - damage;
-    },
-    
     onCollision: function(){
         
+    },
+    
+    loseHealth: function(damage){
+        this.health = this.health - damage;
     }
     
 }); 
