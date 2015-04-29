@@ -58,7 +58,8 @@ game.PlayerEntity = me.Entity.extend({
          console.log(this.attacking);
         this.now= new Date().getTime();  
         this.dead = this.checkIfDead();
-        this.checkKeyPressesAndMove();        
+        this.checkKeyPressesAndMove();     
+        this.checkAbilityKeys();
         this.setAnimation();          
         me.collision.check(this, true, this.collideHandler.bind(this), true);
         this.body.update(delta);       
@@ -111,6 +112,21 @@ game.PlayerEntity = me.Entity.extend({
     jump: function(){
         this.body.jumping = true;
         this.body.vel.y -= this.body.accel.y * me.timer.tick;
+    },
+    
+    checkAbilityKeys: function(){
+        if(me.input.isKeyPressed("skill")){
+            //this.speedBurst();
+        }else if(me.input.isKeyPressed("skill2")){
+            //this.eatCreep();
+        }
+        else if(me.input.isKeyPressed("skill3")){
+            throwSpear();
+        }
+    },
+    //this tells it to throw the spear
+    throwSpear: function(){
+        
     },
     
     setAnimation: function(){
