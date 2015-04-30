@@ -59,8 +59,7 @@ var game = {
 			me.plugin.register.defer(this, debugPanel, "debug");
 		});
 	}
-	// creates a safe engine with these variables
-	me.save.add({exp: 0, exp1: 0, exp2: 0, exp3: 0, exp4: 0});
+	
 
 	me.state.SPENDEXP = 112;
 	me.state.LOAD = 113;
@@ -88,14 +87,14 @@ var game = {
 	"loaded" : function () {
 		// registers the character entitie into the game
 		me.pool.register("player", game.PlayerEntity, true);
+		//adds player 2 into the game
+		me.pool.register("Player2", game.Player2, true);
 		//registers the player base from melon js into the game
 		me.pool.register("PlayerBase", game.PlayerBaseEntity, true);
 		// registers the enemy base from melon js to the game
 		me.pool.register("EnemyBase", game.EnemyBaseEntity, true);
 		//loads the creep character
 		me.pool.register("EnemyCreep", game.EnemyCreep, true);
-		//adds player 2 into the game
-		me.pool.register("Player2", game.Player2, true);
 		// registers the timer into the game
 		me.pool.register("GameTimerManager", game.GameTimerManager);
 		//adds herodeathmanager into the game
