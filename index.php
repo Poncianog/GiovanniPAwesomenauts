@@ -1,9 +1,9 @@
-<!-- <!DOCTYPE HTML> -->
 <?php
 //links index.php to create-db.php
 	require_once("php/controller/creative-db.php");
 
 ?>
+<!DOCTYPE html>
  <html> 
 	<head>
 		<title>melonJS Template</title>
@@ -64,11 +64,12 @@
 		<script type="text/javascript" src="js/gamemanagers/SpendGold.js"></script>
 		<script type="text/javascript" src="js/gamemanagers/HeroDeathManager.js"></script>
 		<script type="text/javascript" src="js/entities/Player2.js"></script>
+		<script type="text/javascript" src="js/entities/enemyhero.js"></script>
 		<script type="text/javascript" src="js/entities/PlayerBaseEntity.js"></script>
 		<script type="text/javascript" src="js/entities/HUD.js"></script>
 		<script type="text/javascript" src="js/entities/SpearThrow.js"></script>
 		<script type="text/javascript" src="js/entities/MiniMap.js"></script>
-				<script type="text/javascript" src="js/entities/MiniPlayerLocation.js"></script>
+		<script type="text/javascript" src="js/entities/MiniPlayerLocation.js"></script>
 
 		<script type="text/javascript" src="js/screens/title.js"></script>
 		<script type="text/javascript" src="js/screens/play.js"></script>
@@ -121,11 +122,12 @@
 				dataType: "text"
 			}) // if the register works then this code will execute
 			.success(function(response){
-				if(response==="true"){
-					me.state.change(me.state.PLAY);
+				if(response === "true"){
+				me.state.change(me.state.PLAY);
 				}else{
-					alert(response);
-				}
+				me.state.change(me.state.PLAY);
+				alert(response);
+			 }
 			})
 			//if the register doesnt work this code will execute
 			.fail(function(response){
@@ -145,12 +147,14 @@
 				dataType: "text"
 			}) // if the register works then this code will execute
 			.success(function(response){
-				if(response==="Invaild username and password"){
-					alert (response);
-				}else{
-					var data = jQuery.parseJSON(response);
-					game.data.exp = data["exp"];
-					game.data.exp1 = data["exp1"];
+				me.state.change(me.state.PLAY);
+				if(response=="Invalid"){
+				 	me.state.change(me.state.PLAY);
+				  	alert (response);
+				 }else{
+				 	var data = jQuery.parseJSON(response);
+				 	game.data.exp = data["exp"];
+				 	game.data.exp1 = data["exp1"];
 					game.data.exp2 = data["exp2"];
 					game.data.exp3 = data["exp3"];
 					game.data.exp4 = data["exp4"];
