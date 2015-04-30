@@ -6,39 +6,42 @@ var game = {
 	data : {
 		// score
 		score : 0,
-                enemyBaseHealth: 1,
-                playerBaseHealth: 1,
-                enemyCreepHealth: 1,
-                playerHealth: 100,
-                enemyCreepAttack: 1,
-                playerAttack: 1,
-//                orcBaseDamage: 10,
-//                orcBaseHealth: 100,
-//                orcBaseSpeed: 3,
-//                orcBaseDefense: 0,
-                playerAttackTimer: 1000,
-                enemyCreepAttackTimer: 1000,           
-                playerMoveSpeed: 5,
-                creepMoveSpeed: 5,
-                gameTimerManager: "",
-                heroDeathManager: "",
-                player: "",
-                exp: 0,
-                gold: 0,
-                ability1: 0,
-                ability2: 0,
-                ability3: 0,
-                skill1: 0,
-                skill2: 0,
-                skill3: 0,
-                exp1: 0,
-                exp2: 0,
-                exp3: 0,
-                exp4: 0,
-                win: "",
-                pausePos: "",
-                buyscreen: "",
-                buytext: ""
+		//global variables that we can use throughout the game
+		enemyBaseHealth: 1,
+		playerBaseHealth: 1,
+		enemyCreepHealth: 10,
+		playerHealth: 10,
+		enemyCreepAttack: 1,
+		playerAttack: 1,
+		//orcBaseDamage: 10,
+		//orcBaseHealth: 100,
+		//orcBaseSpeed: 3,
+		//orcBaseDefense: 0,
+		playerAttackTimer: 1000,
+		enemyCreepAttackTimer: 1000,
+		playerMoveSpeed: 5,
+		creepMoveSpeed: 5,
+		gameTimerManager:"",
+		herodeathmanager: "",
+		player:"",
+		exp: 0,
+		gold: 0,
+		ability1: 0,
+		ability2: 0,
+		ability3:0,
+		skill1: 0,
+		skill2: 0,
+		skill3:0, 
+		exp1: 0,
+		exp2: 0,
+		exp3: 0,
+		exp4: 0,
+		win: "",
+		pausePos: "",
+		buyscreen: "",
+		buytext: ""
+
+
 	},
 	
 	
@@ -56,11 +59,18 @@ var game = {
 			me.plugin.register.defer(this, debugPanel, "debug");
 		});
 	}
-        
-        me.save.add({exp: 0, exp1: 0, exp2: 0, exp3: 0,  exp4: 0});
-        
-        me.state.SPENDEXP = 112;
-        
+	// creates a safe engine with these variables
+	me.save.add({exp: 0, exp1: 0, exp2: 0, exp3: 0, exp4: 0});
+
+	me.state.SPENDEXP = 112;
+	me.state.LOAD = 113;
+	me.state.NEW = 114;
+
+
+	//prints out gameover function from gamemanager.js
+	//console.log(game.data.exp);
+	//console.log(game.data.exp2);
+
 	// Initialize the audio.
 	me.audio.init("mp3,ogg");
 
@@ -76,22 +86,34 @@ var game = {
 
 	// Run on game resources loaded.
 	"loaded" : function () {
-                me.pool.register("player", game.PlayerEntity, true);
-                //me.pool.register("player2", game.Player2Entity, true);
-                me.pool.register("fireball", game.fireball, true);
-                me.pool.register("PlayerBase", game.PlayerBaseEntity);
-                me.pool.register("EnemyBase", game.EnemyBaseEntity);
-                me.pool.register("EnemyCreep", game.EnemyCreep, true);
-                me.pool.register("GameTimerManager", game.GameTimerManager);
-                me.pool.register("HeroDeathManager", game.HeroDeathManager);
-                me.pool.register("ExperienceManager", game.ExperienceManager);
-                me.pool.register("SpendGold", game.SpendGold);
-            
+		// registers the character entitie into the game
+		me.pool.register("player", game.PlayerEntity, true);
+		//registers the player base from melon js into the game
+		me.pool.register("PlayerBase", game.PlayerBaseEntity, true);
+		// registers the enemy base from melon js to the game
+		me.pool.register("EnemyBase", game.EnemyBaseEntity, true);
+		//loads the creep character
+		me.pool.register("EnemyCreep", game.EnemyCreep, true);
+		//adds player 2 into the game
+		me.pool.register("Player2", game.Player2, true);
+		// registers the timer into the game
+		me.pool.register("GameTimerManager", game.GameTimerManager);
+		//adds herodeathmanager into the game
+		me.pool.register("HeroDeathManager", game.HeroDeathManager);
+		//adds expierence manager into the game
+		me.pool.register("ExpierenceManager", game.ExpierenceManager);
+		//adds the resource spend gold into the game
+		me.pool.register("SpendGold", game.SpendGold);
+
+
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
-                me.state.set(me.state.SPENDEXP, new game.SpendExp());
+		me.state.set(me.state.SPENDEXP, new game.SpendExp());
+		me.state.set(me.state.LOAD, new game.LoadProfile());
+		me.state.set(me.state.NEW, new game.NewProfile());
 
 		// Start the game.
-		me.state.change(me.state.MENU);
+		me.state.change(me.state.MENU );
 	}
 };
+
